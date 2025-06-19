@@ -58,9 +58,7 @@ function handleError(error: unknown, context: string): never {
 
 export async function getAllProjects(): Promise<Project[]> {
   try {
-    const res = await fetch(`${API_BASE}/projects?populate=*`, {
-      next: { revalidate: 60 },
-    });
+    const res = await fetch(`${API_BASE}/projects?populate=*`);
 
     if (!res.ok) {
       const errorText = await res.text();
@@ -78,7 +76,8 @@ export async function getProjectBySlug(slug: string): Promise<Project | null> {
   try {
     const query = buildSlugQuery(slug);
     const res = await fetch(`${API_BASE}/projects?${query}`, {
-      next: { revalidate: 60 },
+      
+      // next: { revalidate: 60 },
     });
 
     if (!res.ok) {

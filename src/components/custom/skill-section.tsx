@@ -11,9 +11,9 @@ const SkillSection = () => {
       <section id="skills">
         <div className="flex min-h-0 flex-col gap-y-13">
           <BlurFade delay={BLUR_FADE_DELAY * 9}>
-            <h2 className="text-xl font-bold">Skillssaa</h2>
+            <h2 className="text-2xl font-bold">Skill</h2>
           </BlurFade>
-          <div className="flex flex-row gap-4">
+          <div className="flex flex-wrap gap-4">
             {DATA.skills.map((skill, id) => (
               <BlurFade key={skill}
               className=''

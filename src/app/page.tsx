@@ -1,6 +1,7 @@
 import AboutSection from "@/components/custom/about-section";
 import ContactSection from "@/components/custom/contact";
 import EducationSection from "@/components/custom/education-section";
+import FeedbackSection from "@/components/custom/feedback-list";
 import HackatonSection from "@/components/custom/hackaton-section";
 import HeroSection from "@/components/custom/hero-section";
 import ProjectList from "@/components/custom/project/project-list";
@@ -20,6 +21,7 @@ export default function Page() {
       <EducationSection/>
       <SkillSection/>
       <ProjectList/>
+      <FeedbackSection/>
       <HackatonSection/>
       <ContactSection/>
       </div>

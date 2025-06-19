@@ -13,7 +13,7 @@ export default function Page() {
   return (
     <main className="flex max-w-3xl mx-auto flex-col min-h-[100dvh] ">
       <HeroSection/>
-      <div className="flex flex-col space-y-36" >
+      <div className="flex flex-col sm:space-y-24 space-y-16 lg:space-y-32" >
 
       <AboutSection/>
       <WorkSection/>

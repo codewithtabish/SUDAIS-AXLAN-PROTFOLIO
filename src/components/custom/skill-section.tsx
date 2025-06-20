@@ -1,30 +1,57 @@
-import React from 'react'
-import BlurFade from '../magicui/blur-fade'
-import { DATA } from '@/data/resume'
-import { Badge } from '../ui/badge'
+/** @format */
 
-const SkillSection = () => {
-    const BLUR_FADE_DELAY = 0.04;
+import IconCloud from '@/components/ui/icon-cloud';
+import BlurFade from '../magicui/blur-fade';
+
+// import IconCloud from '@/components/magicui/icon-cloud';
+
+const slugs = [
+  'python',
+  'typescript',
+  'javascript',
+  'docker',
+  'android',
+  'postgresql',
+  'firebase',
+  'github',
+ 
+  'kotlin',
+  'androidstudio',
+ 
+  'machine learning',
+  'ai',
+
+  // Added for AI / ML / Data Science
+  'pandas',
+  'numpy',
+  'scikit-learn',
+  'tensorflow',
+  'keras',
+  'pytorch',
+  'matplotlib',
+  'seaborn',
+  'huggingface',
+  'jupyter',
+  'colab',
+  'openai',
+  'langchain',
+  'mlflow',
+  'xgboost',
+  'lightgbm'
+];
+
+
+export function SkillIcons() {
+  const BLUR_FADE_DELAY = 0.04;
 
   return (
-   
-      <section id="skills">
-        <div className="flex min-h-0 flex-col gap-y-13">
-          <BlurFade delay={BLUR_FADE_DELAY * 9}>
-            <h2 className="text-2xl font-bold">Skill</h2>
-          </BlurFade>
-          <div className="flex flex-wrap gap-4">
-            {DATA.skills.map((skill, id) => (
-              <BlurFade key={skill}
-              className=''
-               delay={BLUR_FADE_DELAY * 10 + id * 0.05}>
-                <Badge key={skill} className=' ' variant='outline'>{skill}</Badge>
-              </BlurFade>
-            ))}
-          </div>
-        </div>
-      </section>
-  )
+    <div>
+      {/* <BlurFade delay={BLUR_FADE_DELAY * 7}>
+        <h2 className='text-xl font-bold'>Skill</h2>
+      </BlurFade> */}
+      <div className='relative flex size-full max-w-lg items-center justify-center overflow-hidden rounded-lg  mx-auto px-20 pb-20  '>
+        <IconCloud iconSlugs={slugs} />
+      </div>
+    </div>
+  );
 }
-
-export default SkillSection

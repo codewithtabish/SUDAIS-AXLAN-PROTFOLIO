@@ -57,17 +57,14 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <body
         className={cn(
-          "min-h-screen bg-background font-sans antialiased    py-12 sm:py-24 px-6",
+          "min-h-screen bg-background font-sans antialiased     px-6",
           fontSans.variable
         )}
       >
         <ThemeProvider attribute="class" defaultTheme="light">
           <TooltipProvider delayDuration={0}>
             {children}
-            <div className="sm:block hidden">
-            <Navbar />
-
-            </div>
+           
           </TooltipProvider>
         </ThemeProvider>
       </body>

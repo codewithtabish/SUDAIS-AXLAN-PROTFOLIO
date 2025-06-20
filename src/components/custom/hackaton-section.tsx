@@ -20,12 +20,9 @@ const HackatonSection = () => {
                   I like building things
                 </h2>
                 <p className="text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
-                  During my time in university, I attended{" "}
-                  {DATA.hackathons.length}+ hackathons. People from around the
-                  country would come together and build incredible things in 2-3
-                  days. It was eye-opening to see the endless possibilities
-                  brought to life by a group of motivated and passionate
-                  individuals.
+                  As an AI student at Abdul Wali Khan University, I’ve built projects in machine learning and NLP, contributed to open source, and attended over 20 national hackathons. Each one challenged me to solve real problems with creative tech — this gallery captures that journey.
+
+
                 </p>
               </div>
             </div>

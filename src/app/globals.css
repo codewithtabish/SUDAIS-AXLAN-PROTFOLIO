@@ -67,6 +67,7 @@
   .theme {
         --animate-marquee: marquee var(--duration) infinite linear;
         --animate-marquee-vertical: marquee-vertical var(--duration) linear infinite;
+        --animate-orbit: orbit calc(var(--duration)*1s) linear infinite;
     }
   }
 
@@ -168,8 +169,15 @@ body{
     transform: translateY(calc(-100% - var(--gap)));
         }
     }
+  @keyframes orbit {
+  0% {
+    transform: rotate(calc(var(--angle) * 1deg)) translateY(calc(var(--radius) * 1px)) rotate(calc(var(--angle) * -1deg));
+        }
+  100% {
+    transform: rotate(calc(var(--angle) * 1deg + 360deg)) translateY(calc(var(--radius) * 1px)) rotate(calc((var(--angle) * -1deg) - 360deg));
+        }
+    }
 }
-
 
 /* 
 @layer base {
@@ -193,12 +201,9 @@ body{
   border-radius: 0.75rem;
 }
 
-
 .marquee {
   animation: scroll var(--duration, 20s) linear infinite;
 }
-
-
 
 /* Override all syntax highlighting backgrounds */
 pre[class*="language-"] code[class*="language-"] span,

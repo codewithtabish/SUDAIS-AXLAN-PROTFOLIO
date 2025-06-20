@@ -39,7 +39,7 @@ const HeroSection = () => {
   const BLUR_FADE_DELAY = 0.04;
 
   return (
-    <section id="hero" className=" px-4 bg-background text-foreground pb-10">
+    <section id="hero" className=" px-4 bg-background text-foreground pb-10 pt-20">
       <motion.div
         variants={containerVariants}
         initial="hidden"

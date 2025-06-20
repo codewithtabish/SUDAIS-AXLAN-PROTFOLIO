@@ -1,5 +1,5 @@
 import { Icons } from "@/components/icons";
-import { HomeIcon, NotebookIcon } from "lucide-react";
+import { FolderKanban, HomeIcon, NotebookIcon, Projector } from "lucide-react";
 
 export const DATA = {
   name: "Hi, I'm Sudais Azlan 👋",
@@ -41,10 +41,43 @@ export const DATA = {
   // Tools & Platforms
   "Render"
 ],
+  gallery: [
+    {
+      avatarUrl: "/gallery/image-one.png",
+
+    },
+    {
+      avatarUrl: "/gallery/image-two.png",
+
+    },
+    {
+      avatarUrl: "/gallery/image-three.jpg",
+
+    },
+    {
+      avatarUrl: "/gallery/image-four.jpg",
+
+    },
+    {
+      avatarUrl: "/gallery/image-five.jpg",
+
+    },
+    {
+      avatarUrl: "/gallery/image-six.jpg",
+
+    },
+    {
+      avatarUrl: "/gallery/image-seven.jpg",
+
+    },
+
+
+  ],
 
   navbar: [
     { href: "/", icon: HomeIcon, label: "Home" },
     { href: "/blog", icon: NotebookIcon, label: "Blog" },
+    { href: "/projects", icon: FolderKanban, label: "Project" },
   ],
   contact: {
     email: "sudaisazlan09@gmail.com",

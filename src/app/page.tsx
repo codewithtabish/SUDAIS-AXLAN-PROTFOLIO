@@ -6,6 +6,7 @@ import HackatonSection from "@/components/custom/hackaton-section";
 import HeroSection from "@/components/custom/hero-section";
 import ProjectList from "@/components/custom/project/project-list";
 import SkillSection from "@/components/custom/skill-section";
+import UserFeedback from "@/components/custom/user-feedback";
 import WorkSection from "@/components/custom/work-section";
 
 // const BLUR_FADE_DELAY = 0.04;
@@ -21,7 +22,8 @@ export default function Page() {
       <EducationSection/>
       <SkillSection/>
       <ProjectList/>
-      <FeedbackSection/>
+      <UserFeedback/>
+      {/* <FeedbackSection/> */}
       <HackatonSection/>
       <ContactSection/>
       </div>

@@ -1,5 +1,6 @@
 'use server';
 
+import { redis } from "@/lib/redis";
 
 export interface Blog {
   id: number;
@@ -21,13 +22,14 @@ export interface Blog {
   publishedAt?: string;
 }
 
+const API_BASE = 'https://sudais-axlan-strapi-backend.onrender.com/api';
+
 export const getAllBlogs = async (): Promise<Blog[]> => {
   try {
-    // const cached = await redis.get('fetch_all_blogs');
-    // if (cached) return cached as Blog[];
-
-    const res = await fetch('http://localhost:1337/api/blogs?populate=*');
+    const res = await fetch(`${API_BASE}/blogs?populate=*`);
     if (!res.ok) throw new Error('Failed to fetch blogs');
+      const cached = await redis.get('fetch_all_blogs');
+    if (cached) return cached as Blog[];
 
     const json = await res.json();
     const blogs = json.data
@@ -51,8 +53,9 @@ export const getAllBlogs = async (): Promise<Blog[]> => {
         updatedAt: item.updatedAt,
         publishedAt: item.publishedAt,
       }));
+    await redis.set('fetch_all_blogs', blogs); // cache for 10 minutes
 
-    // await redis.set('fetch_all_blogs', blogs); // cache for 10 minutes
+
     return blogs;
   } catch (err) {
     console.error('getAllBlogs error:', err);
@@ -60,16 +63,12 @@ export const getAllBlogs = async (): Promise<Blog[]> => {
   }
 };
 
-
-
-
 export const getSingleBlog = async (slug: string): Promise<Blog | null> => {
   try {
-    // const cached = await redis.get(`blog_${slug}`);
-    // if (cached) return cached as Blog;
-
-    const res = await fetch(`http://localhost:1337/api/blogs?filters[slug][$eq]=${slug}&populate=*`);
+    const res = await fetch(`${API_BASE}/blogs?filters[slug][$eq]=${slug}&populate=*`);
     if (!res.ok) throw new Error('Failed to fetch single blog');
+        const cached = await redis.get(`blog_${slug}`);
+    if (cached) return cached as Blog;
 
     const json = await res.json();
     const item = json.data[0];
@@ -94,8 +93,9 @@ export const getSingleBlog = async (slug: string): Promise<Blog | null> => {
       updatedAt: item.updatedAt,
       publishedAt: item.publishedAt,
     };
+        await redis.set(`blog_${slug}`, blog); // cache for 10 minutes
 
-    // await redis.set(`blog_${slug}`, blog); // cache for 10 minutes
+
     return blog;
   } catch (err) {
     console.error('getSingleBlog error:', err);

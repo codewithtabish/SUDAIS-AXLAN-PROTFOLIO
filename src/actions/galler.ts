@@ -1,5 +1,7 @@
 'use server';
 
+import { redis } from '@/lib/redis';
+
 // Types
 export interface GalleryItem {
   id: number;
@@ -23,11 +25,8 @@ export interface StrapiResponse<T> {
 }
 
 // Base API URL
-const API_BASE = 'http://localhost:1337/api';
+const API_BASE = 'https://sudais-axlan-strapi-backend.onrender.com/api';
 
-/**
- * Helper to handle and log API errors consistently.
- */
 function handleError(error: unknown, context: string): never {
   if (error instanceof Error) {
     console.error(`[${context}]`, error.message);
@@ -38,22 +37,24 @@ function handleError(error: unknown, context: string): never {
   }
 }
 
-/**
- * Fetches all gallery items from the Strapi API.
- * @returns Array of gallery items with metadata
- */
 export async function getAllGalleryItems(): Promise<GalleryItem[]> {
   try {
-    const res = await fetch(`${API_BASE}/galleys?populate=*`, {
-      next: { revalidate: 60 }, // Optional: ISR
-    });
+    // Check Redis cache first
+    const cached = await redis.get('gallery_all');
+    if (cached) return cached as GalleryItem[];
 
+    // Fetch from Strapi
+    const res = await fetch(`${API_BASE}/galleys?populate=*`);
     if (!res.ok) {
       const errorText = await res.text();
       throw new Error(`HTTP ${res.status}: ${errorText}`);
     }
 
     const json: StrapiResponse<GalleryItem> = await res.json();
+
+    // Cache it
+    await redis.set('gallery_all', json.data);
+
     return json.data;
   } catch (error) {
     handleError(error, 'getAllGalleryItems');

@@ -1,6 +1,8 @@
-// app/actions/projects.ts (Next.js 15 Server Actions - With Error Handling)
+// app/actions/projects.ts (Next.js 15 Server Actions - With Error Handling + Redis Caching)
 
 'use server';
+
+import { redis } from '@/lib/redis';
 
 export interface Category {
   id: number;
@@ -40,7 +42,7 @@ export interface StrapiResponse<T> {
   meta: any;
 }
 
-const API_BASE = 'http://localhost:1337/api';
+const API_BASE = 'https://sudais-axlan-strapi-backend.onrender.com/api';
 
 function buildSlugQuery(slug: string): string {
   return `populate=*&filters[slug][$eq]=${encodeURIComponent(slug)}`;
@@ -58,6 +60,9 @@ function handleError(error: unknown, context: string): never {
 
 export async function getAllProjects(): Promise<Project[]> {
   try {
+    const cached = await redis.get('fetch_all_projects');
+    if (cached) return cached as Project[];
+
     const res = await fetch(`${API_BASE}/projects?populate=*`);
 
     if (!res.ok) {
@@ -66,6 +71,8 @@ export async function getAllProjects(): Promise<Project[]> {
     }
 
     const json: StrapiResponse<Project> = await res.json();
+    await redis.set('fetch_all_projects', json.data);
+
     return json.data;
   } catch (error) {
     handleError(error, 'getAllProjects');
@@ -74,11 +81,11 @@ export async function getAllProjects(): Promise<Project[]> {
 
 export async function getProjectBySlug(slug: string): Promise<Project | null> {
   try {
+    const cached = await redis.get(`project_${slug}`);
+    if (cached) return cached as Project;
+
     const query = buildSlugQuery(slug);
-    const res = await fetch(`${API_BASE}/projects?${query}`, {
-      
-      // next: { revalidate: 60 },
-    });
+    const res = await fetch(`${API_BASE}/projects?${query}`);
 
     if (!res.ok) {
       const errorText = await res.text();
@@ -86,7 +93,13 @@ export async function getProjectBySlug(slug: string): Promise<Project | null> {
     }
 
     const json: StrapiResponse<Project> = await res.json();
-    return json.data.length > 0 ? json.data[0] : null;
+    const project = json.data.length > 0 ? json.data[0] : null;
+
+    if (project) {
+      await redis.set(`project_${slug}`, project);
+    }
+
+    return project;
   } catch (error) {
     handleError(error, 'getProjectBySlug');
   }

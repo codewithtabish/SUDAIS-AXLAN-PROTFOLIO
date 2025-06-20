@@ -34,6 +34,11 @@ export default function ClientGallery({ items }: Props) {
             inView
             className="break-inside-avoid"
           >
+            {/* <div className='flex flex-col gap-2'>
+            <p>{item?.imageUrl}</p>
+            <p>{item?.imageUrl}</p>
+
+            </div> */}
             <Dialog>
               <DialogTrigger asChild>
                 <div

@@ -5,7 +5,9 @@ export const DATA = {
   name: "Hi, I'm Sudais Azlan 👋",
   description:"I'm Sudais, a passionate AI student building real-world machine learning projects. I'm driven by curiosity and a mission to create tools that solve real problems",
   initials: "DV",
-  url: "https://dillion.io",
+  url: "https://sudaisazlan.pro",
+
+  // url: "https://dillion.io",
   location: "PAKISTAN MARDAN, PK",
   locationLink: "https://www.google.com/maps/place/Mardan,+23200/@34.1893217,72.0388868,12z/data=!3m1!4b1!4m6!3m5!1s0x38deca20e7a77bd9:0xcede96de9f847fd5!8m2!3d34.1986394!4d72.0404293!16zL20vMDYwZ3Nk?entry=ttu&g_ep=EgoyMDI1MDYxNi4wIKXMDSoASAFQAw%3D%3D",
   summary: "I'm **Sudais**, a passionate student currently pursuing a degree in **Artificial Intelligence**. While I’m not yet working in the industry, I’m actively involved in **building real-world AI and machine learning projects** that challenge me to apply what I’m learning in **meaningful ways**. Driven by **curiosity** and a strong desire to **make an impact**, I spend my time exploring the latest advancements in AI — from **deep learning** and **computer vision** to **large language models** and **data-driven applications**. Every project I take on is a step toward my goal: becoming a **skilled AI engineer** capable of creating tools that **solve real problems** and **improve lives**. I'm not just studying AI — **I'm building with it**."
@@ -76,7 +78,7 @@ export const DATA = {
 
   navbar: [
     { href: "/", icon: HomeIcon, label: "Home" },
-    { href: "/blog", icon: NotebookIcon, label: "Blog" },
+    { href: "/blogs", icon: NotebookIcon, label: "Blog" },
     { href: "/projects", icon: FolderKanban, label: "Project" },
   ],
   contact: {

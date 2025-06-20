@@ -1,6 +1,6 @@
-// app/actions/categories.ts
-
 'use server';
+
+import { redis } from '@/lib/redis';
 
 export interface Category {
   id: number;
@@ -25,7 +25,8 @@ interface StrapiResponse<T> {
   };
 }
 
-const API_BASE = 'http://localhost:1337/api';
+// ✅ Deployed backend URL
+const API_BASE = 'https://sudais-axlan-strapi-backend.onrender.com/api';
 
 function handleError(error: unknown, context: string): never {
   if (error instanceof Error) {
@@ -39,16 +40,22 @@ function handleError(error: unknown, context: string): never {
 
 export async function getAllCategories(): Promise<Category[]> {
   try {
-    const res = await fetch(`${API_BASE}/categories?populate=*`, {
-      cache: 'no-store', // optional: ensures fresh data
-    });
+    // ✅ Check Redis cache
+    const cached = await redis.get('category_all');
+    if (cached) return cached as Category[];
 
+    // ✅ Fetch from API if not in cache
+    const res = await fetch(`${API_BASE}/categories?populate=*`);
     if (!res.ok) {
       const errorText = await res.text();
       throw new Error(`HTTP ${res.status}: ${errorText}`);
     }
 
     const json: StrapiResponse<Category> = await res.json();
+
+    // ✅ Cache the result
+    await redis.set('category_all', json.data);
+
     return json.data;
   } catch (error) {
     handleError(error, 'getAllCategories');

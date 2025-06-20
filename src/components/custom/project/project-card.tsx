@@ -26,10 +26,11 @@ const ProjectCard: React.FC<Props> = ({ project, index, variant = 'grid' }) => {
       transition={{ duration: 0.6, delay: index * 0.05 }}
     >
       <Card
-        className={`rounded-2xl shadow-md hover:shadow-lg ${project.isFinalYearProject&& ""} transition duration-300 dark:border-gray-700 dark:border ${
+        className={`rounded-2xl shadow-md hover:shadow-lg transition duration-300 dark:border-gray-700 dark:border ${
           variant === 'list' ? 'flex items-start gap-4 p-4' : 'h-full'
         }`}
       >
+        {/* LIST VIEW IMAGE */}
         {variant === 'list' && (
           <img
             src={project.imageUrl || fallbackImage}
@@ -42,68 +43,94 @@ const ProjectCard: React.FC<Props> = ({ project, index, variant = 'grid' }) => {
           />
         )}
 
-        <CardContent className={`p-4 space-y-2 flex flex-col justify-between ${variant === 'list' ? 'w-full p-0' : ''}`}>
-        
-          {variant === 'grid' && (
-            <img
-              src={project.imageUrl || fallbackImage}
-              alt={project.title}
-              className="w-full h-40 object-cover rounded-xl mb-2"
-              onError={(e) => {
-                const target = e.target as HTMLImageElement;
-                target.src = fallbackImage;
-              }}
-            />
-          )}
+        <CardContent
+          className={`p-4 space-y-2 flex flex-col justify-between ${
+            variant === 'list' ? 'w-full p-0' : ''
+          }`}
+        >
+          {/* GRID VIEW: Show video if exists, otherwise image */}
+          {variant === 'grid' &&
+            (project.videoUrl ? (
+              <video
+                src={project.videoUrl}
+                autoPlay
+                loop
+                muted
+                playsInline
+                className="pointer-events-none mx-auto h-40 w-full object-cover object-top rounded-xl mb-2"
+              />
+            ) : (
+              <img
+                src={project.imageUrl || fallbackImage}
+                alt={project.title}
+                className="w-full h-40 object-cover rounded-xl mb-2"
+                onError={(e) => {
+                  const target = e.target as HTMLImageElement;
+                  target.src = fallbackImage;
+                }}
+              />
+            ))}
 
-          <div className="text-xl font-semibold line-clamp-2">{project.title}</div>
+          {/* TITLE */}
+          <div className="text-xl font-semibold line-clamp-2">
+            {project.title}
+          </div>
 
+          {/* DESCRIPTION */}
           <div className="text-muted-foreground text-sm line-clamp-3">
             {project.description}
           </div>
 
-          <Link href={`/projects/${project.slug}`} className="text-orange-600 text-sm italic hover:underline">
+          {/* MORE LINK */}
+          <Link
+            href={`/projects/${project.slug}`}
+            className="text-orange-600 text-sm italic hover:underline"
+          >
             More...
           </Link>
 
-        {
-          variant==='grid' &&
-           
-            <div className=" flex flex-wrap gap-2 pt-2">
-            {project.techStack.split(',').map((tech, idx) => (
-              <Badge key={idx} variant="secondary">
-                {tech.trim()}
-              </Badge>
-            ))}
-          </div>
-        }
+          {/* TECH STACK (Only in Grid) */}
+          {variant === 'grid' && (
+            <div className="flex flex-wrap gap-2 pt-2">
+              {project.techStack.split(',').map((tech, idx) => (
+                <Badge key={idx} variant="secondary">
+                  {tech.trim()}
+                </Badge>
+              ))}
+            </div>
+          )}
 
+          {/* ICON LINKS */}
           <div className="flex gap-4 pt-4 items-center">
-            {(project.githubUrl && ! project.isFinalYearProject )&&(
-              <a href={project.githubUrl} target="_blank" rel="noopener noreferrer">
+            {project.githubUrl && !project.isFinalYearProject && (
+              <a
+                href={project.githubUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
                 <GithubIcon className="w-5 h-5 text-gray-500 hover:text-black dark:hover:text-white" />
               </a>
             )}
-            {(project.githubUrl &&  project.isFinalYearProject )&&(
-              <a href={project.githubUrl} target="_blank" rel="noopener noreferrer">
-                {/* <span>ony members</span> */}
+            {project.githubUrl && project.isFinalYearProject && (
+              <a
+                href={project.githubUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
                 <GithubIcon className="w-5 h-5 text-red-800 hover:text-black dark:hover:text-white" />
               </a>
             )}
             {project.liveUrl && (
-              <a href={project.liveUrl} target="_blank" rel="noopener noreferrer">
+              <a
+                href={project.liveUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
                 <ListVideo className="w-5 h-5 text-gray-500 hover:text-black dark:hover:text-white" />
               </a>
             )}
           </div>
         </CardContent>
-         {/* <div className="  grid md:grid-cols-3 gap-4 items-center  w-full bg-red-400 pt-2">
-            {project.techStack.split(',').map((tech, idx) => (
-              <Badge key={idx} variant="secondary">
-                {tech.trim()}
-              </Badge>
-            ))}
-          </div> */}
       </Card>
     </motion.div>
   );

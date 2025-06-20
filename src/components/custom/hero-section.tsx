@@ -7,6 +7,7 @@ import BlurFadeText from '../magicui/blur-fade-text';
 import BlurFade from '../magicui/blur-fade';
 import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar';
 import TypewriterText from './typewriter-text';
+import ResumeWrapper from './resume-wrapper';
 
 const containerVariants = {
   hidden: {},
@@ -39,12 +40,13 @@ const HeroSection = () => {
   const BLUR_FADE_DELAY = 0.04;
 
   return (
-    <section id="hero" className=" px-4 bg-background text-foreground pb-10 pt-20">
+    <section id="hero" >
+
       <motion.div
         variants={containerVariants}
-        initial="hidden"
+        // initial="hidden"
         animate="show"
-        className="mx-auto w-full max-w-6xl space-y-12"
+        className="mx-auto w-full max-w-6xl "
       >
         <div className="flex flex-col-reverse md:flex-row items-center justify-between gap-12">
           {/* LEFT - Text */}
@@ -77,9 +79,11 @@ const HeroSection = () => {
                 </Avatar>
               </div>
             </BlurFade>
+            {/* <ResumeWrapper/> */}
           </motion.div>
         </div>
       </motion.div>
+      {/* <ResumeWrapper/> */}
     </section>
   );
 };

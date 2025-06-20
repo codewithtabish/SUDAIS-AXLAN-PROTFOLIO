@@ -16,6 +16,12 @@ const nextConfig = {
         protocol: 'http',
         hostname: '**', // Allow all HTTP image domains (not recommended in production)
       },
+      {
+        protocol: 'https',
+        hostname: 'u5zl6ktajk.ufs.sh',
+        port: '',
+        pathname: '/**',
+      }
     ],
   },
 };

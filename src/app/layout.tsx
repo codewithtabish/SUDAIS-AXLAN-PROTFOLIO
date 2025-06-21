@@ -111,8 +111,10 @@ export default function RootLayout({
           crossOrigin="anonymous"
           strategy="afterInteractive"
         /> */}
-        <Script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3242419931272978"
-     crossOrigin="anonymous"></Script>
+        {/* <Script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3242419931272978"
+     crossOrigin="anonymous"></Script> */}
+     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3242419931272978"
+     crossOrigin="anonymous"></script>
 
 
       </Head>

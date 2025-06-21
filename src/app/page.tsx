@@ -27,6 +27,7 @@ import UserFeedback from "@/components/custom/user-feedback";
 import WorkSection from "@/components/custom/work-section";
 import Navbar from "@/components/navbar";
 import { Suspense } from "react";
+import Script from "next/script";
 
 // ✅ SEO Metadata for Home Page
 export const metadata: Metadata = {
@@ -55,6 +56,8 @@ export default function Page() {
     <>
       {/* JSON-LD Structured Data for Home Page */}
       <Head>
+             <Script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3242419931272978"
+     crossOrigin="anonymous"></Script>
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{

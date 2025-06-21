@@ -1,8 +1,11 @@
 import type { Metadata } from "next";
+import Head from "next/head";
 import BackButton from "@/components/custom/back-comp";
 import Image from "next/image";
 import Link from "next/link";
 import { Blog, getAllBlogs } from "@/actions/blog";
+
+export const dynamic = "force-dynamic";
 
 // ✅ SEO Metadata
 export const metadata: Metadata = {
@@ -10,31 +13,16 @@ export const metadata: Metadata = {
   description:
     "Explore AI insights, development tips, and tutorials by Sudais Azlan. From content detection to LLMs, stay updated with real-world AI applications.",
   keywords: [
-    "AI Blog",
-    "Sudais Azlan blog",
-    "machine learning articles",
-    "AI tutorials",
-    "Python content detection",
-    "AI tools",
-    "plagiarism detection AI",
-    "Scanzy AI",
-    "Next.js blog with Strapi",
-    "real-world AI blog",
-    "AI student blog",
-    "AI research blog",
-    "SudaisAzlan.pro blog",
-    "ML guides",
-    "Sudais Azlan writing",
-    "AI project explanation",
-    "deep learning insights",
-    "Sudais tech blog",
-    "tech blog AI",
-    "AI updates",
-    "AI student portfolio blog",
-    "LLM articles",
-    "NLP blog",
-    "machine learning development",
-    "Sudais AI guide"
+    "AI Blog", "AI development articles", "Sudais Azlan blog", "AI tutorials",
+    "Python content detection", "LLMs", "machine learning blog", "deep learning blog",
+    "real-world AI blog", "NLP blog", "Next.js blog with Strapi", "AI case studies",
+    "AI projects in Python", "Scanzy AI", "plagiarism detection AI", "spam detection",
+    "AI with Redis", "OpenAI", "LangChain", "transformers", "AI student blog",
+    "AI research blog", "SudaisAzlan.pro blog", "ML guides", "BERT", "GPT",
+    "AI community posts", "student portfolio blog", "AI blog Pakistan",
+    "Sudais tech writing", "AI ethics", "semantic analysis", "AI-powered applications",
+    "text classification", "feature engineering", "Python ML blog",
+    "AI content creation", "AI blog portfolio", "tech blog by Sudais Azlan"
   ],
   openGraph: {
     title: "AI Blog & Articles – Sudais Azlan",
@@ -69,6 +57,50 @@ export default async function BlogListPage() {
 
   return (
     <>
+      {/* ✅ JSON-LD Structured Data for Blog Listing */}
+      <Head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "Blog",
+              "name": "Sudais Azlan Blog",
+              "url": "https://sudaisazlan.pro/blogs",
+              "description":
+                "Explore AI insights, tutorials, and real-world development logs by Sudais Azlan — an AI student working with NLP, Python, and ML tools.",
+              "author": {
+                "@type": "Person",
+                "name": "Sudais Azlan",
+                "url": "https://sudaisazlan.pro"
+              },
+              "publisher": {
+                "@type": "Organization",
+                "name": "Sudais Azlan Portfolio",
+                "url": "https://sudaisazlan.pro"
+              },
+              "mainEntityOfPage": {
+                "@type": "WebPage",
+                "@id": "https://sudaisazlan.pro/blogs"
+              },
+              "blogPost": blogs.map(blog => ({
+                "@type": "BlogPosting",
+                "headline": blog.title,
+                "url": `https://sudaisazlan.pro/blogs/${blog.slug}`,
+                "description": blog.description,
+                "image": blog.cloudinarBannerUrl || "https://5bl4nawh55.ufs.sh/f/aETJ5rHKEzpCgFmmwV1kwb2pQ51rzEMsL8PjH9XNi6ngqKoa",
+                "datePublished": blog.publishedAt || blog.createdAt,
+                "dateModified": blog.updatedAt || blog.publishedAt,
+                "author": {
+                  "@type": "Person",
+                  "name": "Sudais Azlan"
+                }
+              }))
+            }),
+          }}
+        />
+      </Head>
+
       <BackButton />
 
       <header className="bg-gradient-to-r from-[#0f172a] via-[#1e3a8a] to-[#0f172a] dark:from-[#020617] dark:via-[#334155] dark:to-[#020617] py-20">
@@ -78,9 +110,9 @@ export default async function BlogListPage() {
           </h1>
           <p className="text-xl md:text-2xl max-w-3xl mx-auto opacity-90 text-slate-100 dark:text-slate-300">
             Discover practical guides, hands-on experiments, and real-world insights
-      from my journey as an AI student and developer. From content detection and
-      NLP tools to machine learning and Python automation — explore how I build
-      with AI to solve meaningful problems.
+            from my journey as an AI student and developer. From content detection and
+            NLP tools to machine learning and Python automation — explore how I build
+            with AI to solve meaningful problems.
           </p>
         </div>
       </header>

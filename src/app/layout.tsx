@@ -7,6 +7,8 @@ import type { Metadata } from "next";
 import { Inter as FontSans } from "next/font/google";
 import "./globals.css";
 import MobileHeader from "@/components/custom/mobile-header";
+import Script from "next/script";  // <-- Import Script here
+
 
 const fontSans = FontSans({
   subsets: ["latin"],
@@ -61,6 +63,21 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
+      <head>
+        {/* Google Analytics */}
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=G-YFR4KHZXHM"
+          strategy="afterInteractive"
+        />
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-YFR4KHZXHM');
+          `}
+        </Script>
+      </head>
       <body
         className={cn(
           "min-h-screen bg-background font-sans antialiased ",
@@ -69,6 +86,7 @@ export default function RootLayout({
       >
         <ThemeProvider attribute="class" defaultTheme="light">
           <TooltipProvider delayDuration={0}>
+            {/* <MobileHeader/> */}
             {children}
           </TooltipProvider>
         </ThemeProvider>

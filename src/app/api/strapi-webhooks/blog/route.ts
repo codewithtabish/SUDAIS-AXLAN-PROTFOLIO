@@ -1,32 +1,56 @@
 import { NextResponse } from 'next/server';
 import { redis } from '@/lib/redis';
+import { revalidatePath } from 'next/cache';
+import { exec } from 'child_process';
+import { promisify } from 'util';
+
+const execAsync = promisify(exec);
 
 export async function POST(req: Request) {
   try {
-    let body: any = {};
-    console.log('📬 Webhook received from Strapi');
+    console.log('📬 Received Strapi Blog Webhook');
 
-    // Try to parse JSON (Strapi usually sends the updated entry here)
-    try {
-      body = await req.json();
-    } catch {
-      console.warn('⚠️ No JSON body found in webhook request');
-    }
+    // Parse the JSON body sent by Strapi
+    const body = await req.json().catch(() => {
+      console.warn('⚠️ No valid JSON found in webhook payload');
+      return {};
+    });
 
-    // Clear the full blog list cache
+    // Invalidate Redis cache for all blogs
     await redis.del('fetch_all_blogs');
-    console.log('🧹 Cleared cache key: fetch_all_blogs');
+    console.log('🧹 Cleared Redis key: fetch_all_blogs');
 
-    // If the payload contains a slug, clear its individual cache too
     const slug = body?.entry?.slug;
+
     if (slug) {
+      // Invalidate Redis cache for specific blog
       await redis.del(`blog_${slug}`);
-      console.log(`🧹 Cleared cache key: blog_${slug}`);
+      console.log(`🧹 Cleared Redis key: blog_${slug}`);
+
+      // Revalidate blog routes
+      revalidatePath('/blogs');
+      revalidatePath(`/blogs/${slug}`);
+      console.log(`♻️ Revalidated paths: /blogs & /blogs/${slug}`);
     }
 
-    return NextResponse.json({ success: true, message: 'Cache cleared successfully' });
+    // Regenerate sitemap
+    await execAsync('pnpm generate-sitemap');
+    console.log('🗺️ sitemap.xml regenerated via script');
+
+    // Ping Google to recrawl updated sitemap
+    const sitemapUrl = encodeURIComponent('https://sudaisazlan.pro/sitemap.xml');
+    await fetch(`https://www.google.com/ping?sitemap=${sitemapUrl}`);
+    console.log('📡 Pinged Google Search Console with updated sitemap');
+
+    return NextResponse.json({
+      success: true,
+      message: '✅ Cache cleared, paths revalidated, sitemap regenerated, and Google pinged.',
+    });
   } catch (error) {
-    console.error('❌ Webhook error:', error);
-    return NextResponse.json({ success: false, error: 'Internal server error' }, { status: 500 });
+    console.error('❌ Webhook processing failed:', error);
+    return NextResponse.json(
+      { success: false, error: 'Internal server error during webhook processing.' },
+      { status: 500 }
+    );
   }
 }

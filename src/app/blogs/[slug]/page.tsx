@@ -5,6 +5,9 @@ import BackButton from "@/components/custom/back-comp";
 import { getSingleBlog } from "@/actions/blog";
 import ProjectRichRenderWrapper from "@/components/custom/project/project-rich-wrapper";
 import ShareButtons from "@/components/custom/project/share-button";
+import Head from "next/head";
+
+export const dynamic = 'force-dynamic';
 
 // ✅ Metadata
 export async function generateMetadata({
@@ -87,28 +90,66 @@ export default async function BlogPage({
   const blogUrl = `https://sudaisazlan.pro/blogs/${blog.slug}`;
 
   return (
-    <div className="md:max-w-3xl mx-auto px-4 py-10">
-      <BackButton />
-
-      {bannerUrl && (
-        <Image
-          src={bannerUrl}
-          alt={blog.title}
-          width={700}
-          height={400}
-          className="w-full md:max-h-[400px] rounded-lg object-cover mb-6"
+    <>
+      {/* ✅ JSON-LD Structured Data */}
+      <Head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "Article",
+              "headline": blog.title,
+              "description": blog.description,
+              "url": blogUrl,
+              "image": bannerUrl,
+              "author": {
+                "@type": "Person",
+                "name": "Sudais Azlan",
+                "url": "https://sudaisazlan.pro"
+              },
+              "publisher": {
+                "@type": "Organization",
+                "name": "Sudais Azlan",
+                "logo": {
+                  "@type": "ImageObject",
+                  "url": "https://sudaisazlan.pro/logo.png"
+                }
+              },
+              "datePublished": blog.createdAt,
+              "dateModified": blog.updatedAt || blog.createdAt,
+              "mainEntityOfPage": {
+                "@type": "WebPage",
+                "@id": blogUrl
+              }
+            }),
+          }}
         />
-      )}
+      </Head>
 
-      <h1 className="text-3xl font-bold mb-4">{blog.title}</h1>
-      <p className="text-gray-700 text-lg mb-4">{blog.description}</p>
+      <div className="md:max-w-3xl mx-auto px-4 py-10">
+        <BackButton />
 
-      <div className="prose prose-lg max-w-none dark:prose-invert mt-8">
-        <ProjectRichRenderWrapper blocks={blog.content} />
-        <div className="border border-t-2 my-4 py-4 px-5">
-          <ShareButtons title={blog.title} url={blogUrl} />
+        {bannerUrl && (
+          <Image
+            src={bannerUrl}
+            alt={blog.title}
+            width={700}
+            height={400}
+            className="w-full md:max-h-[400px] rounded-lg object-cover mb-6"
+          />
+        )}
+
+        <h1 className="text-3xl font-bold mb-4">{blog.title}</h1>
+        <p className="text-gray-700 text-lg mb-4">{blog.description}</p>
+
+        <div className="prose prose-lg max-w-none dark:prose-invert mt-8">
+          <ProjectRichRenderWrapper blocks={blog.content} />
+          <div className="border border-t-2 my-4 py-4 px-5">
+            <ShareButtons title={blog.title} url={blogUrl} />
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 }

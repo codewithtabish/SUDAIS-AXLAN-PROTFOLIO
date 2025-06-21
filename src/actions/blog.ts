@@ -16,8 +16,7 @@ export interface Blog {
   keywords?: string;
   ogTitle?: string;
   ogDescription?: string;
-  twitterCardType?: string;
-  createdAt?: string;
+  twitterCardType?: string;  createdAt?: string;
   updatedAt?: string;
   publishedAt?: string;
 }

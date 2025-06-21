@@ -8,6 +8,7 @@ import { Inter as FontSans } from "next/font/google";
 import "./globals.css";
 import MobileHeader from "@/components/custom/mobile-header";
 import Script from "next/script";  // <-- Import Script here
+import Head from "next/head";
 
 
 const fontSans = FontSans({
@@ -89,7 +90,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <head>
+      <Head>
         {/* Google Analytics */}
         <Script
           src="https://www.googletagmanager.com/gtag/js?id=G-YFR4KHZXHM"
@@ -112,7 +113,7 @@ export default function RootLayout({
         />
 
 
-      </head>
+      </Head>
       <body
         className={cn(
           "min-h-screen bg-background font-sans antialiased ",

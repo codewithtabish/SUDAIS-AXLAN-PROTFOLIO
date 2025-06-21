@@ -103,6 +103,13 @@ export default function RootLayout({
             gtag('config', 'G-YFR4KHZXHM');
           `}
         </Script>
+        {/* ✅ Google AdSense verification script */}
+        <Script
+          async
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3242419931272978"
+          crossOrigin="anonymous"
+          strategy="afterInteractive"
+        />
       </head>
       <body
         className={cn(

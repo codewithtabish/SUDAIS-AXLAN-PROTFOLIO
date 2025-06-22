@@ -10,6 +10,7 @@ import MobileHeader from "@/components/custom/mobile-header";
 import Script from "next/script";  // <-- Import Script here
 import Head from "next/head";
 import { Toaster } from "@/components/ui/sonner"
+import { Analytics } from "@vercel/analytics/next"
 
 
 const fontSans = FontSans({
@@ -135,6 +136,7 @@ export default function RootLayout({
             {/* <MobileHeader/> */}
             {children}
                     <Toaster />
+                    <Analytics/>
 
           </TooltipProvider>
         </ThemeProvider>

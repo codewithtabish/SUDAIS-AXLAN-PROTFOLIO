@@ -63,13 +63,13 @@ const ProjectList = async () => {
         ))}
       </div>
 
-      <div className="mt-8 flex justify-center ">
+      {/* <div className="mt-8 flex justify-center ">
         <Link href="/projects" passHref>
           <Button variant="link" className="text-primary text-lg hover:underline">
             View all projects →
           </Button>
         </Link>
-      </div>
+      </div> */}
     </>
   );
 };

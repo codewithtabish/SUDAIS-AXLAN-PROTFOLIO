@@ -1,58 +1,75 @@
-'use client'
+'use client';
 
-import React from 'react'
-import BlurFade from '../magicui/blur-fade'
-import Link from 'next/link'
-import { DATA } from '@/data/resume'
+import React from 'react';
+import BlurFade from '../magicui/blur-fade';
+import Link from 'next/link';
+import { DATA } from '@/data/resume';
 
 const ContactSection = () => {
   const BLUR_FADE_DELAY = 0.04;
 
-  const { email, tel, social } = DATA.contact;
-
   return (
-    <section id="contact " className='pb-16'>
-      <div className="grid items-center justify-center gap-4 px-4 text-center md:px-6 w-full py-12">
+    <section id="contact" className="w-full py-20 px-4 md:px-6">
+      <div className="max-w-3xl mx-auto text-center space-y-6">
         <BlurFade delay={BLUR_FADE_DELAY * 16}>
-          <div className="space-y-3">
-            <div className="inline-block rounded-lg bg-foreground text-background px-3 py-1 text-sm">
-              Contact
-            </div>
-            <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl">
-              Get in Touch
-            </h2>
-            <p className="mx-auto max-w-[600px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
-              Want to chat? Just shoot me a DM{" "}
-              <Link
-                href={social.X.url}
-                className="text-blue-500 hover:underline"
-              >
-                on Twitter (X)
-              </Link>{" "}
-              and I’ll respond whenever I can.
-              <br className="hidden sm:block" />
-              For professional inquiries, feel free to email or call me directly.
-            </p>
+          <div className="inline-block bg-foreground text-background px-4 py-1 rounded-full text-sm font-medium">
+            Contact
+          </div>
 
-            <div className="mt-6 space-y-2 text-muted-foreground text-base font-medium">
-              <div>
-                📧 Email:{" "}
+          <h2 className="text-4xl md:text-5xl font-bold tracking-tight">
+            Let’s Connect
+          </h2>
+
+          <p className="text-muted-foreground md:text-lg leading-relaxed">
+            Whether it's collaboration or questions, I'm always open to a conversation.
+            You can message me directly{" "}
+            <Link
+              href="https://twitter.com/sudaisazlan" // or your actual X profile
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-primary underline underline-offset-4 hover:text-primary/80"
+            >
+              on X (Twitter)
+            </Link>
+            , or reach out via email or phone.
+          </p>
+
+          {/* Contact Info Footer Style */}
+          <div className="w-full border-t pt-8 mt-16 text-muted-foreground text-sm md:text-base">
+            <div className="flex flex-col md:flex-row items-center justify-between gap-4">
+              <div className="space-y-1 text-center md:text-left">
+                <div>
+                  📧 Email:{" "}
+                  <a
+                    href="mailto:sudaisazlan09@gmail.com"
+                    className="text-foreground font-medium hover:underline underline-offset-4"
+                  >
+                    sudaisazlan09@gmail.com
+                  </a>
+                </div>
+                <div>
+                  📞 Phone:{" "}
+                  <a
+                    href="tel:+923129136013"
+                    className="text-foreground font-medium hover:underline underline-offset-4"
+                  >
+                    +92 312 9136013
+                  </a>
+                </div>
+              </div>
+
+              <div className="text-center md:text-right">
                 <Link
-                  href={`mailto:${email}`}
-                  className="text-blue-600 hover:underline"
+                  href="/privacy-policy"
+                  className="text-foreground font-medium hover:underline underline-offset-4"
                 >
-                  {email}
+                  🔒 Privacy Policy
                 </Link>
               </div>
-              <div>
-                📞 Phone:{" "}
-                <Link
-                  href={`tel:${tel}`}
-                  className="text-blue-600 hover:underline"
-                >
-                  {tel}
-                </Link>
-              </div>
+            </div>
+
+            <div className="mt-6 text-center text-xs text-muted-foreground">
+              &copy; {new Date().getFullYear()} Sudais Azlan. All rights reserved.
             </div>
           </div>
         </BlurFade>

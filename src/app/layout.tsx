@@ -9,6 +9,7 @@ import "./globals.css";
 import MobileHeader from "@/components/custom/mobile-header";
 import Script from "next/script";  // <-- Import Script here
 import Head from "next/head";
+import { Toaster } from "@/components/ui/sonner"
 
 
 const fontSans = FontSans({
@@ -133,6 +134,8 @@ export default function RootLayout({
           <TooltipProvider delayDuration={0}>
             {/* <MobileHeader/> */}
             {children}
+                    <Toaster />
+
           </TooltipProvider>
         </ThemeProvider>
       </body>

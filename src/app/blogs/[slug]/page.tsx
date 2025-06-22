@@ -9,7 +9,6 @@ import Head from "next/head";
 
 export const dynamic = 'force-dynamic';
 
-// ✅ Metadata
 export async function generateMetadata({
   params,
 }: {
@@ -75,7 +74,6 @@ export async function generateMetadata({
   };
 }
 
-// ✅ Blog Page
 export default async function BlogPage({
   params,
 }: {
@@ -125,6 +123,11 @@ export default async function BlogPage({
             }),
           }}
         />
+        <script
+          async
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3242419931272978"
+          crossOrigin="anonymous"
+        ></script>
       </Head>
 
       <div className="md:max-w-3xl mx-auto px-4 py-10">
@@ -142,6 +145,23 @@ export default async function BlogPage({
 
         <h1 className="text-3xl font-bold mb-4">{blog.title}</h1>
         <p className="text-gray-700 text-lg mb-4">{blog.description}</p>
+
+        {/* ✅ Google AdSense ad placed after description */}
+        <div className="my-6">
+          <ins
+            className="adsbygoogle"
+            style={{ display: "block" }}
+            data-ad-client="ca-pub-3242419931272978"
+            data-ad-slot="3617827097"
+            data-ad-format="auto"
+            data-full-width-responsive="true"
+          ></ins>
+          <script
+            dangerouslySetInnerHTML={{
+              __html: `(adsbygoogle = window.adsbygoogle || []).push({});`,
+            }}
+          />
+        </div>
 
         <div className="prose prose-lg max-w-none dark:prose-invert mt-8">
           <ProjectRichRenderWrapper blocks={blog.content} />

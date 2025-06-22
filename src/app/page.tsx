@@ -28,6 +28,7 @@ import WorkSection from "@/components/custom/work-section";
 import Navbar from "@/components/navbar";
 import { Suspense } from "react";
 import Script from "next/script";
+import ChatBot from "@/components/chatbot/chat-bot";
 
 // ✅ SEO Metadata for Home Page
 export const metadata: Metadata = {
@@ -214,6 +215,9 @@ export default function Page() {
           <Suspense fallback={<ContactSectionSkeleton />}>
             <ContactSection />
           </Suspense>
+        </div>
+        <div>
+          <ChatBot/>
         </div>
       </main>
 

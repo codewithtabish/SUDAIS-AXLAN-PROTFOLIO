@@ -166,7 +166,7 @@ export default function Page() {
         />
       </Head>
 
-      <MobileHeader />
+      {/* <MobileHeader /> */}
 
       <main className="flex max-w-3xl mx-auto flex-col min-h-[100dvh] px-5 md:px-0">
         <Suspense fallback={<HeroWrapperSkeleton />}>

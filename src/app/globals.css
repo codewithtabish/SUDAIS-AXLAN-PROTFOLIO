@@ -218,3 +218,13 @@ pre[class*="language-"] code[class*="language-"] {
   padding: 1rem; /* p-4 */
   margin: 1rem 0; /* my-4 */
 }
+
+body{
+  overflow-x:hidden,
+
+
+}
+
+*{
+  overflow-x:hidden
+}

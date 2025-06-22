@@ -136,6 +136,7 @@ export default function RootLayout({
             {/* <MobileHeader/> */}
             {children}
                     <Toaster />
+                    {/* added analytics */}
                     <Analytics/>
 
           </TooltipProvider>

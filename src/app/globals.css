@@ -227,3 +227,8 @@ body{
 
 }
 
+/* In globals.css */
+body,
+html {
+  overflow-x: hidden;
+}

@@ -6,16 +6,17 @@ import { Button } from '@/components/ui/button';
 import { DATA } from '@/data/resume';
 import Link from 'next/link';
 import { Avatar, AvatarImage } from '@/components/ui/avatar';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { ModeToggle } from '@/components/mode-toggle';
 import { Separator } from '@/components/ui/separator';
-// import { SheetClose } from '@radix-ui/react-dialog'; // ✅ Needed to close programmatically
 
 export default function MobileHeader() {
   const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
     setIsMounted(true);
+    document.body.classList.add('overflow-x-hidden');
+    return () => document.body.classList.remove('overflow-x-hidden');
   }, []);
 
   if (!isMounted) return null;
@@ -23,14 +24,13 @@ export default function MobileHeader() {
   const { email, tel, social } = DATA.contact;
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-background shadow-sm sm:hidden">
+    <header className="fixed top-0 left-0 right-0 z-50 bg-background shadow-sm sm:hidden overflow-x-hidden">
       <div className="flex items-center justify-between px-4 py-3">
         {/* Logo */}
         <Link href="/" className="flex items-center space-x-2">
           <Avatar className="w-8 h-8">
             <AvatarImage src={DATA.avatarUrl} alt={DATA.name} />
           </Avatar>
-          {/* <span className="font-semibold text-lg">{DATA.name}</span> */}
         </Link>
 
         {/* Menu */}
@@ -41,7 +41,10 @@ export default function MobileHeader() {
             </Button>
           </SheetTrigger>
 
-          <SheetContent side="right" className="w-64 sm:w-80 flex flex-col gap-6 py-10">
+          <SheetContent
+            side="right"
+            className="w-[85vw] max-w-sm flex flex-col gap-6 py-10 overflow-y-auto"
+          >
             {/* Nav links */}
             <div className="space-y-4">
               {DATA.navbar.map((item) => (

@@ -76,7 +76,9 @@ Always stay friendly, clear, helpful, and professional.
       `,
         },
         { role: 'user', content: message },
+
       ],
+   
     });
 
     const reply = chat.choices[0]?.message?.content;

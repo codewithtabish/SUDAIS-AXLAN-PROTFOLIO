@@ -58,8 +58,8 @@ const ProjectList = async () => {
       </BlurFade>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 px-4">
-        {projects.map((project: Project, index: number) => (
-          <ProjectCard key={project.id} project={project} index={index} />
+        {projects?.map((project: Project, index: number) => (
+          <ProjectCard key={project?.id} project={project} index={index} />
         ))}
       </div>
 

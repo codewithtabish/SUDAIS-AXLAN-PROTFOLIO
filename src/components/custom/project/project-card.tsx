@@ -33,8 +33,8 @@ const ProjectCard: React.FC<Props> = ({ project, index, variant = 'grid' }) => {
         {/* LIST VIEW IMAGE */}
         {variant === 'list' && (
           <img
-            src={project.imageUrl || fallbackImage}
-            alt={project.title}
+            src={project?.imageUrl || fallbackImage}
+            alt={project?.title}
             className="w-40 h-32 object-cover rounded-xl"
             onError={(e) => {
               const target = e.target as HTMLImageElement;

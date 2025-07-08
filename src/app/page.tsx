@@ -29,6 +29,7 @@ import Navbar from "@/components/navbar";
 import { Suspense } from "react";
 import Script from "next/script";
 import ChatBot from "@/components/chatbot/chat-bot";
+import AboutMeAgain from "@/components/custom/gasp/anim-about";
 
 // ✅ SEO Metadata for Home Page
 export const metadata: Metadata = {
@@ -168,13 +169,30 @@ export default function Page() {
 
       {/* <MobileHeader /> */}
 
-      <main className="flex max-w-3xl mx-auto flex-col min-h-[100dvh] px-5 md:px-0">
+<main className="flex w-full max-w-screen-md md:max-w-3xl lg:max-w-4xl xl:max-w-6xl 2xl:max-w-7xl mx-auto flex-col min-h-[100dvh] px-4 sm:px-6 md:px-8">
+        {/* ✅ AdSense ad block */}
+        <div className="my-6">
+          <ins
+            className="adsbygoogle"
+            style={{ display: "block" }}
+            data-ad-client="ca-pub-3242419931272978"
+            data-ad-slot="3617827097"
+            data-ad-format="auto"
+            data-full-width-responsive="true"
+          ></ins>
+          <script
+            dangerouslySetInnerHTML={{
+              __html: `(adsbygoogle = window.adsbygoogle || []).push({});`,
+            }}
+          />
+          </div>
         <Suspense fallback={<HeroWrapperSkeleton />}>
           <HeroWrapper />
         </Suspense>
 
         <div className="flex flex-col sm:space-y-24 space-y-16 lg:space-y-32">
           <Suspense fallback={<AboutSectionSkeleton />}>
+          {/* <AboutMeAgain/> */}
             <AboutSection />
           </Suspense>
 

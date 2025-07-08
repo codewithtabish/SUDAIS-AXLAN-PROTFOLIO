@@ -8,6 +8,7 @@ import BlurFade from '../magicui/blur-fade';
 import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar';
 import TypewriterText from './typewriter-text';
 import ResumeWrapper from './resume-wrapper';
+import ThreeDCard from './gasp/three-d-card';
 
 const containerVariants = {
   hidden: {},
@@ -64,9 +65,11 @@ const HeroSection = () => {
               text={DATA.description}
             />
           </motion.div>
+          {/* right card */}
+          <ThreeDCard/>
 
           {/* RIGHT - Avatar */}
-          <motion.div variants={slideRight}>
+          {/* <motion.div variants={slideRight}>
             <BlurFade delay={BLUR_FADE_DELAY}>
               <div className="relative w-40 h-40 md:w-48 md:h-48 rounded-full overflow-hidden shadow-xl border border-gray-300 dark:border-white/10">
                 <Avatar className="w-full h-full">
@@ -80,7 +83,7 @@ const HeroSection = () => {
               </div>
             </BlurFade>
             {/* <ResumeWrapper/> */}
-          </motion.div>
+          {/* </motion.div> */} 
         </div>
       </motion.div>
       {/* <ResumeWrapper/> */}

@@ -8,7 +8,7 @@ const HeroWrapper = () => {
         <HeroSection/>
         <div className='absolute bottom-16 left-1/3 top-48'>
 
-        <ResumeWrapper/>
+        {/* <ResumeWrapper/> */}
         </div>
       
     </div>
